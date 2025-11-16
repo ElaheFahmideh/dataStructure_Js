@@ -19,6 +19,21 @@ class LinkedList {
     if (!this.tail) this.tail = newElement;
   }
 
+  delete(value) {
+    if (!this.head) return;
+    let currentElement = this.head;
+
+    while (this.head && this.head.value === value) this.head = this.head.next;
+
+    while (currentElement.next) {
+      if (currentElement.next.value === value)
+        currentElement.next = currentElement.next.next;
+      else currentElement = currentElement.next;
+    }
+
+    while (this.tail === value) this.tail === currentElement;
+  }
+
   toArray() {
     let elements = [];
     let currentElement = this.head;
@@ -35,7 +50,14 @@ class LinkedList {
 const list = new LinkedList();
 
 list.append("1");
+list.append("1");
+list.append("2");
 list.append("2");
 list.append("3");
 list.prepend("first value");
+list.prepend("first value");
+
+list.delete("1");
+list.delete("first value");
+
 console.log(list.toArray());
