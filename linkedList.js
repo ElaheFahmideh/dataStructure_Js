@@ -19,6 +19,26 @@ class LinkedList {
     if (!this.tail) this.tail = newElement;
   }
 
+  find(value) {
+    if (!this.head) return;
+    let currentElement = this.head;
+
+    while (currentElement) {
+      if (currentElement.value === value) return currentElement;
+      currentElement = currentElement.next;
+    }
+    return;
+  }
+
+  insertAfter(value, afterValue) {
+    const existingElement = this.find(afterValue);
+
+    if (existingElement) {
+      const newElement = { value, next: existingElement.next };
+      existingElement.next = newElement;
+    }
+  }
+
   delete(value) {
     if (!this.head) return;
     let currentElement = this.head;
@@ -50,14 +70,12 @@ class LinkedList {
 const list = new LinkedList();
 
 list.append("1");
-list.append("1");
-list.append("2");
 list.append("2");
 list.append("3");
+list.append("4");
 list.prepend("first value");
-list.prepend("first value");
+list.delete("4");
+list.insertAfter("4", "3");
 
-list.delete("1");
-list.delete("first value");
-
+console.log(list.find("2"));
 console.log(list.toArray());
